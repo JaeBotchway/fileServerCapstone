@@ -13,15 +13,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
-router.get('/dashboard' , async (req,res) =>{
-    try{
-    const allUsers = await pool.query('SELECT * FROM file')
-    res.json(allUsers.rows)
-    }
-    catch(err){
-console.error(err.message)
-    }
-})
+// router.get('/dashboard' , async (req,res) =>{
+// //     try{
+// //     const allUsers = await pool.query('SELECT * FROM file')
+// //     //res.json(allUsers)
+// //     const allFiles = allUsers.rows;
+// //      res.render('dashboard', {allFiles})
+// //     }
+// //     catch(err){
+// // console.error(err.message)
+// //     }
+// })
 
 router.get('/dashboard/:title' , async (req,res) =>{
     const {title} = req.params

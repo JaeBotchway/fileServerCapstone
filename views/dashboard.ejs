@@ -8,6 +8,14 @@
 </head>
 <body>
     <h1>Dashboard </h1>
+    <h2>Welcome to Cards & more</h2>
+    <ul>
+        <% allFiles.forEach(files => {%>
+        <li><%=files.title %></li>
+        <li><%=files.description %></li>
+        <hr>
+        <%}); %>
+    </ul>
 
     <a href ="/index">Logout</a>
 </body>
