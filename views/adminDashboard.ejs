@@ -10,12 +10,21 @@
     <h1> Admin Dashboard </h1>
     <h2>Welcome to Cards & more</h2>
     <ul>
-        <% allFiles.forEach(files => {%>
-        <li><%=files.title %></li>
-        <li><%=files.description %></li>
+        <% files.forEach(file => {%>
+        <li><%=file.title %></li>
+        <li><%=file.description %></li>
         <hr>
         <%}); %>
-    </ul>
+    </ul> 
+    <div>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" value = "Upload" placeholder="Upload" />
+            <input type="text" name="title" placeholder="Title"/>
+            <input type="text" name="description" placeholder="description"/>
+            <input type="submit" value="Upload"/>
+        </form>
+
+    </div>
 
     <a href ="/users/index">Logout</a>
 </body>
