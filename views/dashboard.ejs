@@ -17,7 +17,8 @@
         <li><%=file.title %></li>
         <li><%=file.description %></li>
         <li><img src=<%=file.url %> > </li>
-        <li><a href=`/download?` >download</a></li>
+        <li><a href=/download?fileId=<%=file.file_id%>>download</a></li>
+        <a href = "mailto: abc@example.com">Send Email</a>
         <hr>
         <%}); %>
     </ul>

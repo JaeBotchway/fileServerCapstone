@@ -60,6 +60,13 @@ app.get("/search", async (req,res) =>{
     files=files.rows;
     res.json(files)
 })
+app.get("/download", async(req,res) =>{
+    let files = await pool.query(`SELECT * FROM file WHERE file_id = $1`, [req.query.fileId]);
+    let file = files.rows[0];
+    file = `${__dirname}/public/${file.url}`;
+    console.log(file);
+    res.download(file); // Set disposition and send it.
+})
 const usersRoute = require("./src/controllers/routes/users");
 const usersFile = require("./src/controllers/routes/files");
 
