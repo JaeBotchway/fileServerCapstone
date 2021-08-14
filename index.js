@@ -10,6 +10,8 @@ const app = express();
 const PORT = process.env.PORT || 4001
 const {passport} = require("./src/passport/passportConfig")
 const {initialize} = require('./src/passport/passportConfig');
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 initialize(passport);
 
@@ -38,7 +40,12 @@ app.get('/users/login', (req,res) => {
 });
 
 app.get('/users/dashboard', async (req,res) => {
+
     let allFiles = await pool.query('SELECT * FROM file')
+    // for(let file of allFiles.rows){
+    //     if(file.url) file.url =  "/" + file.url.replace("\\", "/")
+    //     console.log(file.url);
+    // }
     allFiles = allFiles.rows;
     res.render('dashboard.ejs', {files: allFiles});
 });
@@ -48,7 +55,11 @@ app.get('/users/admin-dashboard', async (req,res) =>{
     allFiles = allFiles.rows;
     res.render('adminDashboard.ejs', {files: allFiles});
 })
-
+app.get("/search", async (req,res) =>{
+    let files = await pool.query(`SELECT * FROM file WHERE title LIKE '%${req.query.term}%';`)
+    files=files.rows;
+    res.json(files)
+})
 const usersRoute = require("./src/controllers/routes/users");
 const usersFile = require("./src/controllers/routes/files");
 

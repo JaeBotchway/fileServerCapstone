@@ -50,8 +50,8 @@ router.post('/register', validation, async (req, res) => {
 
 //userlogin route
 router.post('/login', validation, passport.authenticate('local'), async (req, res) => {
+
     const {email} = req.body
-    console.log("authentication success")
     let user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
     try {
 

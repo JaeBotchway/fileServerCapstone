@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, 'uploads/')
+      cb(null, 'public/uploads/')
     },
     filename: function (req, file, cb) {
         if(file.mimetype === 'image/png') cb(null, Date.now() + '.png') //Appending .png
@@ -45,13 +45,12 @@ router.get('/dashboard/:title' , async (req,res) =>{
 })
 
 router.post('/upload', upload.single('file'), async (req,res) => {
-    console.log(req.body.file)
     try{
     //destructure the req.body (description , title)
     const {description, title} = req.body;
     const uploadedFile = req.file;
     const file = await pool.query('INSERT INTO file (description, title, url) VALUES ($1, $2, $3) RETURNING *',
-    [description, title, uploadedFile.path])
+    [description, title, uploadedFile.path.replace("public\\uploads\\", "uploads/")])
     res.json({
         filePath: file.rows[0].url
     })
