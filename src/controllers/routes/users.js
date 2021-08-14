@@ -109,28 +109,24 @@ router.post('/adminlogin', validation, async (req, res) => {
             return res.status(401).send("Invalid Credential");
         }
 
-        //console.log(validPassword)
-        // if (!validPassword) {
-        //     return res.status(401).send("Invalid Password");
-        // }
-
         //check if password and email exist
         const validEmail = await pool.query('SELECT * FROM users WHERE user_id = 1');
         if ((validEmail.rows[0].user_email === email) && (validEmail.rows[0].user_password === password)) {
-            res.json(validEmail.rows[0])
+            //res.json(validEmail.rows[0])
+            try {
+                const allUsers = await pool.query('SELECT * FROM file')
+                //res.json(allUsers)
+                const allFiles = allUsers.rows;
+            return res.render('adminDashboard', { allFiles })
+           }
+           catch (err) {
+               console.error(err.message)
+           }
+            
+        }else {
+          return  res.render('Enter valid credentials')
         }
         
-    //        try {
-    //             const allUsers = await pool.query('SELECT * FROM file')
-    //             //res.json(allUsers)
-    //             const allFiles = allUsers.rows;
-    //             return res.render('dashboard', { allFiles })
-    //       //  }
-    //       //  catch (err) {
-    //       //      console.error(err.message)
-    //       //  }
-        
-
     }
     catch (err) {
         console.error(err.message);

@@ -36,10 +36,15 @@ app.get('/users/dashboard', (req,res) => {
     res.render('dashboard.ejs');
 });
 
+app.get('/users/adminlogin', (req,res) => {
+    res.render('adminLogin.ejs');
+});
+
 
 
 const usersRoute = require("./src/controllers/routes/users");
-const usersFile = require("./src/controllers/routes/files")
+const usersFile = require("./src/controllers/routes/files");
+
 //middleware
 app.use("/users", usersRoute);
 app.use(usersFile);
