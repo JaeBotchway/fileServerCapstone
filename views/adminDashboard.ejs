@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" />
     <title>Document</title>
 </head>
+
 <body>
     <h1> Admin Dashboard </h1>
     <h2>Welcome to Cards & more</h2>
+    <div>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="file" name="file" value="Upload" placeholder="Upload" />
+            <input type="text" name="title" placeholder="Title" />
+            <input type="text" name="description" placeholder="description" />
+            <input type="submit" value="Upload" />
+        </form>
+
+    </div>
+   
     <ul>
         <% files.forEach(file => {%>
         <li><%=file.title %></li>
         <li><%=file.description %></li>
-        <li><img src=<%=file.url %> > </li>
+        <li><img src=<%=file.url %> style = "width:80px; height:60px;"> </li>
         <hr>
         <%}); %>
     </ul> 
-    <div>
-        <form method="POST" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="file" value = "Upload" placeholder="Upload" />
-            <input type="text" name="title" placeholder="Title"/>
-            <input type="text" name="description" placeholder="description"/>
-            <input type="submit" value="Upload"/>
-        </form>
 
-    </div>
 
-    <a href ="/users/index">Logout</a>
+    <a href="/users/login">Logout</a>
 </body>
+
 </html>

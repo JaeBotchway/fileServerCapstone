@@ -5,6 +5,7 @@ const pool = require('./src/controllers/services/db')
 const bcrypt = require('bcrypt')
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
+
 //initialize app 
 const app = express();
 const PORT = process.env.PORT || 4001
@@ -26,6 +27,7 @@ app.use(passport.session());
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
+//routes to render page
 app.get('/', (req,res) => {
     res.render('index');
 });
@@ -42,10 +44,6 @@ app.get('/users/login', (req,res) => {
 app.get('/users/dashboard', async (req,res) => {
 
     let allFiles = await pool.query('SELECT * FROM file')
-    // for(let file of allFiles.rows){
-    //     if(file.url) file.url =  "/" + file.url.replace("\\", "/")
-    //     console.log(file.url);
-    // }
     allFiles = allFiles.rows;
     res.render('dashboard.ejs', {files: allFiles});
 });
@@ -74,19 +72,9 @@ const usersFile = require("./src/controllers/routes/files");
 app.use("/users", usersRoute);
 app.use(usersFile);
 
-// adminCreate()
+
 //server listening to port
 app.listen(PORT, () => {
     console.log (`Server running on ${PORT}`)
 })
 
-// async function adminCreate(){
-//     //bcrypt the user password
-//     const saltRound = 10;
-//     const salt = await bcrypt.genSalt(saltRound);
-//     const bcryptPassword = await bcrypt.hash('chan822', salt);
-
-//     //enter the new user inside our database
-//     await pool.query('INSERT INTO users (user_name, user_email, user_password, roles) VALUES ($1, $2, $3, $4) RETURNING *',
-//         ['jackie', 'jackie344@amalitech.com', bcryptPassword, 'Admin']);
-// }
