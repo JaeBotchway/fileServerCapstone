@@ -39,11 +39,10 @@ router.post('/upload', upload.single('file'), async (req,res) => {
     const {description, title} = req.body;
     const uploadedFile = req.file;
     const file = await pool.query('INSERT INTO file (description, title, url) VALUES ($1, $2, $3) RETURNING *',
-    [description, title, uploadedFile.path.replace("public\\uploads\\", "public/uploads/")])
-    res.redirect('users/admin-dashboard')
-    // res.json({
-    //     filePath: file.rows[0].url
-    // })
+    [description, title, uploadedFile.path.replace("public\\uploads\\", "/uploads/")])
+    res.json({
+        filePath: file.rows[0].url
+    })
         }
         catch(err){
     console.error(err.message)

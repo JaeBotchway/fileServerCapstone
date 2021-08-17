@@ -8,26 +8,27 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"
     />
+    <link rel ="stylesheet" href="/styles.css"/>
     <title>Document</title>
     <script src="/static/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Dashboard </h1>
-    <h2>Welcome to Cards & more</h2>
+    <h1>Welcome to Cards & more </h1>
+    <h2>Dashboard</h2>
     <input type="text" id="searchTerm" />
     <button id="searchBtn">Search</button>
     <ul id="filesContainer">
         <% files.forEach(file => {%>
         <li><%=file.title %></li>
         <li><%=file.description %></li>
-        <li><img src=<%=file.url %> > </li>
+        <li><img src=<%=file.url %> style = "width:80px; height:60px;"> </li>
         <li><a href=/download?fileId=<%=file.file_id%>>download</a></li>
         <a href = "mailto: abc@example.com">Send Email</a>
         <hr>
         <%}); %>
     </ul>
 
-    <a href ="/users/login">Logout</a>
+    <a href ="/users/login"> <button>Logout</button></a>
     <script src="/static/search.js"></script>
 </body>
 </html>

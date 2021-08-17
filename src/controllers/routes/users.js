@@ -36,10 +36,6 @@ router.post('/register', validation, async (req, res) => {
             [name, email, bcryptPassword]);
         res.render('login');
 
-        //generate our jwt token
-        //  const jwtToken = jwtGenerator(newUser.rows[0].user_id);
-        // return res.json({ jwtToken })
-
     }
     catch (err) {
         console.error(err.message);
@@ -67,65 +63,6 @@ router.post('/login', validation, passport.authenticate('local'), async (req, re
 });
 
 
-// //adminlogin route
-// router.post('/adminlogin', validation, async (req, res) => {
-//     try {
-//         //destructure the req.body
-//         const { email, password } = req.body;
-
-//         //check if user exist else throw error
-//         const user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
-//         if (user.rows.length === 0) {
-//             return res.status(401).send("Invalid Credential");
-//         }
-
-//         //check if password and email exist
-//         const validEmail = await pool.query('SELECT * FROM users WHERE user_id = 1');
-//         if ((validEmail.rows[0].user_email === email) && (validEmail.rows[0].user_password === password)) {
-//             //res.json(validEmail.rows[0])
-//             try {
-//                 const allUsers = await pool.query('SELECT * FROM file')
-//                 //res.json(allUsers)
-//                 const allFiles = allUsers.rows;
-//             return res.render('adminDashboard', { allFiles })
-//            }
-//            catch (err) {
-//                console.error(err.message)
-//            }
-            
-//         }else {
-//           return  res.render('Enter valid credentials')
-//         }
-        
-//     }
-//     catch (err) {
-//         console.error(err.message);
-//         res.status(500).send("Sever Error");
-//     }
-
-
-// });
-
-//get all users
-router.get('/register', async (req, res) => {
-    try {
-        const allUsers = await pool.query('SELECT * FROM users')
-        res.json(allUsers.rows)
-    }
-    catch (err) {
-        console.error(err.message)
-    }
-})
-
-//verify token
-// router.get('/verify', authorize, (req, res) => {
-//     try {
-//       res.json(true);
-//     } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send("Server error");
-//     }
-//   });
 
 
 module.exports = router;

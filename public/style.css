@@ -1,0 +1,24 @@
+body{
+    background-image: url('/pexels-eva-elijas-6569146.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+ 
+}
+
+h1{
+    text-align: center;
+    color:#000000;
+    font-size: 7rem;
+    font-style: italic;
+}
+
+p {
+    color:black;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: lighter;
+}
+
+li{
+list-style: none;
+}

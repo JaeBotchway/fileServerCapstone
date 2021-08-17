@@ -1,0 +1,39 @@
+
+body{
+     background-image: url('/pexels-evie-shaffer-2395249.jpg');
+     background-size: cover;
+     background-repeat: no-repeat;
+  
+}
+
+h1{
+    text-align: center;
+    color:#000000;
+    font-size: 7rem;
+    font-style: italic;
+}
+
+p {
+    color:black;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: lighter;
+}
+
+li{
+list-style: none;
+}
+
+#btn{
+    background-color: #f90493bb;
+    color: black;
+    opacity: 0.8;
+    width:150px;
+    height:50px;
+    font-size: 15px;
+    margin-top:20%;
+    margin-left: 25%;
+    border-radius: 10px;
+    padding:20px;
+    font-weight: bold;
+}
