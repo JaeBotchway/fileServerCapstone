@@ -1,15 +1,21 @@
 body{
-    background-image: url('/pexels-eva-elijas-6569146.jpg');
+    /* background-color: whitesmoke; */
+    background-image: url(/pexels-pixabay-269767.jpg); 
     background-size: cover;
-    background-repeat: no-repeat;
- 
+    /* color:whitesmoke; */
 }
-
 h1{
     text-align: center;
     color:#000000;
     font-size: 7rem;
     font-style: italic;
+}
+
+h2{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 30px;
 }
 
 p {
@@ -19,7 +25,37 @@ p {
     font-weight: lighter;
 }
 
+#main{
+    text-align: center;
+    margin-top: 30rem;
+}
+
+li{
+    list-style-type: none;
+}
+
 #name{
-width:50%;
-height:10%
+border:none;
+width:3rem;
+}
+
+#email{
+    border:none;
+    width:50rem;
+ }
+
+#password{
+        border:none;
+        width:50rem;
+}
+
+#submitBtn{
+    /* background-color: #f90493bb;
+    color: black;
+    opacity: 0.8;
+    width:150px;
+    height:70px;
+    font-size: 15px;
+    text-align: center; */
+    color:black;
 }

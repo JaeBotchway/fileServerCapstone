@@ -1,10 +1,13 @@
 //require dependencies
+require("dotenv").config();
 const express = require('express');
 const cors = require("cors");
 const pool = require('./src/controllers/services/db')
 const bcrypt = require('bcrypt')
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
+const sessions = require('express-session');
+const flash = require('express-flash')
 
 //initialize app 
 const app = express();
@@ -19,6 +22,17 @@ initialize(passport);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(flash())
+
+// register the session
+const oneDay = 1000 * 60 * 60 * 24;
+app.use(sessions({
+    // secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: process.env.jwtSecretKey,
+    saveUninitialized: true,
+    cookie: { maxAge: oneDay },
+    resave: false
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -33,15 +47,15 @@ app.get('/', (req,res) => {
 });
 
 
-app.get('/users/register', (req,res) => {
+app.get('/users/register',checkNotAuthentication, (req,res) => {
     res.render('register.ejs');
 });
 
-app.get('/users/login',  (req,res) => {
+app.get('/users/login', checkNotAuthentication, (req,res) => {
     res.render('login.ejs');
 });
 
-app.get('/users/dashboard', async (req,res) => {
+app.get('/users/dashboard',checkAuthentication, async (req,res) => {
 
     let allFiles = await pool.query('SELECT * FROM file')
     allFiles = allFiles.rows;
@@ -80,19 +94,24 @@ app.listen(PORT, () => {
 
 function checkAuthentication(req,res,next){
     if(req.isAuthenticated()){
-
-        if(req.session.user.roles === 'Admin'){
-            return res.redirect('admin-dashboard')
-        }
-        return res.redirect('dashboard');
+        return next()
     }
-    next();
+    res.redirect('users/login')
 }
 
 function checkNotAuthentication(req,res,next){
-    if(req.isAuthenticated()){
-        return next();
+    if( req.isAuthenticated()){
+        return dashboardRedirect(req,res)
     }
-    res.redirect('/users/login')
+
+    next();
+}
+
+function dashboardRedirect(req,res){
+    const role = req.user.roles;
+    if(role === 'Admin'){
+        return res.redirect('admin-dashboard')
+    }
+    return res.redirect('dashboard');
 }
 

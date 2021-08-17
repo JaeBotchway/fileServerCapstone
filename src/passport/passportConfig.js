@@ -31,18 +31,28 @@ function initialize(passport){
             done("Sever Error");
         }
       }
+
+    passport.serializeUser((user, done)=> {
+       // console.log('user been serialized', user )
+        done(null, user.user_id);
+    })
+    passport.deserializeUser((id,done)=>{
+        pool.query('SELECT * FROM users WHERE user_id = $1', [id], (err,results)=>{
+            if(err) done(err)
+
+            else {
+                const user = results.rows[0];
+                delete user.password;
+                done(null, user) 
+            }
+        });
+    })
+
     passport.use(new LocalStrategy(
         { usernameField: 'email', passwordField: 'password' },
         authenticatedUser)        
         );
 
-    passport.serializeUser((user, done)=> done(null, user.user_id))
-    passport.deserializeUser((id,done)=>{
-        pool.query('SELECT * FROM users WHERE user_id = $1', [id], (err,results)=>{
-            if(err) throw err
-            return done(null, results.rows[0]) 
-        });
-    })
 }
 
 module.exports = {initialize: initialize, passport: passport};

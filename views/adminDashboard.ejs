@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <h1>Welcome to Cards & more</h1>
     <h2>Admin Dashboard</h2>
     <div>
         <form method="POST" action="/upload" enctype="multipart/form-data">
@@ -25,9 +24,9 @@
    
     <ul>
         <% files.forEach(file => {%>
+        <li><img src=<%=file.url %> style = "width:100px; height:80px;"> </li>
         <li><%=file.title %></li>
         <li><%=file.description %></li>
-        <li><img src=<%=file.url %> style = "width:80px; height:60px;"> </li>
         <hr>
         <%}); %>
     </ul> 
