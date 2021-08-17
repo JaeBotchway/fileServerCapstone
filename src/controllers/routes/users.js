@@ -5,7 +5,7 @@ const pool = require('../services/db')
 const bcrypt = require('bcrypt')
 //const jwtGenerator = require('../../utils/jwtGenerator')
 const validation = require('../../helpers/validation')
-const {passport} = require('../../passport/passportConfig');
+const { passport } = require('../../passport/passportConfig');
 
 
 
@@ -47,11 +47,34 @@ router.post('/register', validation, async (req, res) => {
 //userlogin route
 router.post('/login', validation, passport.authenticate('local'), async (req, res) => {
 
-    const {email} = req.body
+    const { email, password } = req.body
     let user = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
+    if (!user) {
+        // tell the user the email does not existss
+        return res.status(401).json("Invalid Credential");;
+    }
+
+    let validPassword = await bcrypt.compare(
+        password,
+        user.rows[0].user_password
+    );
+
+    if (!validPassword) {
+        // tell the user invalid password
+        return res.status(401).json("Invalid Credential");;
+    }
+
+    const role = user.rows[0].roles;
+
+    // register the session
+    // req.session.user = user;
+
+
+
     try {
 
-        if(user.rows[0].roles === 'Admin'){
+
+        if (role === 'Admin') {
             return res.redirect('admin-dashboard')
         }
         return res.redirect('dashboard');

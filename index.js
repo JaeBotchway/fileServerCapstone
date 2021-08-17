@@ -27,7 +27,7 @@ app.use(passport.session());
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
-//routes to render page
+//routes to
 app.get('/', (req,res) => {
     res.render('index');
 });
@@ -37,7 +37,7 @@ app.get('/users/register', (req,res) => {
     res.render('register.ejs');
 });
 
-app.get('/users/login', (req,res) => {
+app.get('/users/login',  (req,res) => {
     res.render('login.ejs');
 });
 
@@ -77,4 +77,22 @@ app.use(usersFile);
 app.listen(PORT, () => {
     console.log (`Server running on ${PORT}`)
 })
+
+function checkAuthentication(req,res,next){
+    if(req.isAuthenticated()){
+
+        if(req.session.user.roles === 'Admin'){
+            return res.redirect('admin-dashboard')
+        }
+        return res.redirect('dashboard');
+    }
+    next();
+}
+
+function checkNotAuthentication(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/users/login')
+}
 

@@ -19,6 +19,7 @@ p {
     font-weight: lighter;
 }
 
-li{
-list-style: none;
+#name{
+width:50%;
+height:10%
 }

@@ -17,4 +17,4 @@ CREATE TABLE file(
 );
 
 --admin user
-INSERT INTO users (user_name, user_email, user_password) VALUES ('jackie', 'jackie213@gmail.com', 'chan8822', 'Admin');
+INSERT INTO users (user_name, user_email, user_password, roles) VALUES ('jackie', 'jackie213@gmail.com', 'chan8822', 'Admin');
