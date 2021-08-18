@@ -12,7 +12,7 @@ h1{
 }
 
 h2{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 4rem;
     text-align: center;
     margin-top: 30px;
@@ -50,12 +50,34 @@ width:50rem;
 }
 
 #submitBtn{
-    /* background-color: #f90493bb;
-    color: black;
-    opacity: 0.8;
-    width:150px;
-    height:70px;
-    font-size: 15px;
-    text-align: center; */
     color:black;
+    border: none 1px black;
+    background-color: white;
+    font-weight: bold;
 }
+
+#submitBtn:hover{
+    background-color: #f90493bb;
+}
+
+#register, #login, a{
+    color: black;
+    text-decoration: none;
+}
+
+#register, #login{
+    background-color: white;
+}
+
+#register, #login a:hover{
+    color: blue;
+}
+
+#btn{
+    background-color: rgba(255, 0, 0, 0.781);
+    color:white;
+}
+
+#upload:hover{
+    background-color: #f90493bb;
+} 

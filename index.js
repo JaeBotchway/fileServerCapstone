@@ -62,7 +62,7 @@ app.get('/users/dashboard',checkAuthentication, async (req,res) => {
     res.render('dashboard.ejs', {files: allFiles});
 });
 
-app.get('/users/admin-dashboard', async (req,res) =>{
+app.get('/users/admin-dashboard',checkAuthentication, async (req,res) =>{
     let allFiles = await pool.query('SELECT * FROM file')
     allFiles = allFiles.rows;
     res.render('adminDashboard.ejs', {files: allFiles});
@@ -92,13 +92,15 @@ app.listen(PORT, () => {
     console.log (`Server running on ${PORT}`)
 })
 
+//checking authenticating
 function checkAuthentication(req,res,next){
     if(req.isAuthenticated()){
         return next()
     }
-    res.redirect('users/login')
+    res.redirect('login')
 }
 
+//checking authenticating
 function checkNotAuthentication(req,res,next){
     if( req.isAuthenticated()){
         return dashboardRedirect(req,res)
@@ -107,6 +109,7 @@ function checkNotAuthentication(req,res,next){
     next();
 }
 
+//function checking redirection to dashboard based on user role
 function dashboardRedirect(req,res){
     const role = req.user.roles;
     if(role === 'Admin'){
