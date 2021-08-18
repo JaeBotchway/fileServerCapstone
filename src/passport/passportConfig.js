@@ -1,4 +1,4 @@
-const LocalStrategy = require("passport-local");
+const LocalStrategy = require("passport-local").Strategy;
 const passport = require('passport');
 const pool = require("../controllers/services/db");
 const bcrypt = require('bcrypt')
@@ -13,14 +13,14 @@ function initialize(passport){
             let results = await pool.query('SELECT * FROM users WHERE user_email = $1', [email]);
     
             if (results.rows.length === 0) {
-                return done(null, false, { message: 'Incorrect credentials.' });
+                return done(null, false, { message: 'Incorrect email.' });
             }
     
             //check if password already exist
             const validPassword = await bcrypt.compare(password, results.rows[0].user_password);
             //console.log(validPassword)
             if (!validPassword) {
-                done(null, false, { message: 'Incorrect credentials.' });
+                return done(null, false, { message: 'Incorrect password.' });
             }
             
             const user = results.rows[0]

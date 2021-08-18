@@ -46,7 +46,7 @@ router.post('/register', validation, async (req, res) => {
 })
 
 //userlogin route
-router.post('/login', validation, passport.authenticate('local'), async (req, res) => {
+router.post('/login', validation, passport.authenticate('local',{failureRedirect:'/users/login', failureFlash:true}), async (req, res) => {
 
     try {
         const { email, password } = req.body

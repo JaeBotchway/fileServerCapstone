@@ -1,8 +1,6 @@
 body{
-    /* background-color: whitesmoke; */
     background-image: url(/pexels-pixabay-269767.jpg); 
     background-size: cover;
-    /* color:whitesmoke; */
 }
 h1{
     text-align: center;
@@ -81,3 +79,9 @@ width:50rem;
 #upload:hover{
     background-color: #f90493bb;
 } 
+
+.prompt{
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+}

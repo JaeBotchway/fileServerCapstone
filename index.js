@@ -27,7 +27,6 @@ app.use(flash())
 // register the session
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(sessions({
-    // secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
     secret: process.env.jwtSecretKey,
     saveUninitialized: true,
     cookie: { maxAge: oneDay },
