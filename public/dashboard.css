@@ -23,3 +23,9 @@ li{
 #upload:hover{
     background-color: #f90493bb;
 } 
+
+body{
+    text-align: center;
+    background-image: url(/pexels-pixabay-66284.jpg);
+   
+}
